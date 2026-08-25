@@ -23,6 +23,13 @@ import {
   exportFullDatabase,
   importFullDatabase
 } from '../utils/storage';
+import { CheckCircle2, AlertCircle } from 'lucide-react';
+
+interface ToastInfo {
+  id: string;
+  message: string;
+  type: 'success' | 'info' | 'error';
+}
 
 interface PortfolioContextType {
   // Data
@@ -49,6 +56,9 @@ interface PortfolioContextType {
   setSelectedDesign: (design: DesignItem | null) => void;
   selectedVideo: VideoItem | null;
   setSelectedVideo: (video: VideoItem | null) => void;
+
+  // Toast Notification
+  showToast: (message: string, type?: 'success' | 'info' | 'error') => void;
 
   // Admin & Auth
   isAdmin: boolean;
@@ -109,8 +119,18 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [selectedDesign, setSelectedDesign] = useState<DesignItem | null>(null);
   const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
 
+  const [toasts, setToasts] = useState<ToastInfo[]>([]);
+
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [adminPasscode, setAdminPasscode] = useState<string>('murali2026');
+
+  const showToast = (message: string, type: 'success' | 'info' | 'error' = 'success') => {
+    const id = `toast-${Date.now()}-${Math.random()}`;
+    setToasts((prev) => [...prev, { id, message, type }]);
+    setTimeout(() => {
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+    }, 4000);
+  };
 
   // Load persistent data on initial mount
   useEffect(() => {
@@ -165,6 +185,7 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     if (passcode.trim() === adminPasscode.trim()) {
       setIsAdmin(true);
       sessionStorage.setItem('murali_admin_auth', 'true');
+      showToast('Welcome back, Murali! Logged into CMS Admin.', 'success');
       return true;
     }
     return false;
@@ -174,23 +195,27 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setIsAdmin(false);
     sessionStorage.removeItem('murali_admin_auth');
     setCurrentView('portfolio');
+    showToast('Logged out of Admin Portal.', 'info');
   };
 
   const updateAdminPasscode = async (newPasscode: string) => {
     setAdminPasscode(newPasscode);
     await saveItem('admin_passcode', newPasscode);
+    showToast('Admin passcode updated successfully.', 'success');
   };
 
   const updateProfile = async (updated: Partial<Profile>) => {
     const newProfile = { ...profile, ...updated };
     setProfile(newProfile);
     await saveItem('profile', newProfile);
+    showToast('Profile & photos saved and live on your website!', 'success');
   };
 
   const updateStartup = async (updated: Partial<VentureLabStartup>) => {
     const newStartup = { ...startup, ...updated };
     setStartup(newStartup);
     await saveItem('startup', newStartup);
+    showToast('VentureLab OS details updated and published!', 'success');
   };
 
   const saveProject = async (project: Project) => {
@@ -203,17 +228,20 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
     setProjects(updated);
     await saveItem('projects', updated);
+    showToast(`Project "${project.title}" saved and live!`, 'success');
   };
 
   const deleteProject = async (id: string) => {
     const updated = projects.filter(p => p.id !== id);
     setProjects(updated);
     await saveItem('projects', updated);
+    showToast('Project deleted.', 'info');
   };
 
   const reorderProjects = async (orderedProjects: Project[]) => {
     setProjects(orderedProjects);
     await saveItem('projects', orderedProjects);
+    showToast('Projects reordered.', 'info');
   };
 
   const saveDesign = async (design: DesignItem) => {
@@ -226,17 +254,20 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
     setDesigns(updated);
     await saveItem('designs', updated);
+    showToast(`Design "${design.title}" saved to ${design.category}!`, 'success');
   };
 
   const deleteDesign = async (id: string) => {
     const updated = designs.filter(d => d.id !== id);
     setDesigns(updated);
     await saveItem('designs', updated);
+    showToast('Design item deleted.', 'info');
   };
 
   const reorderDesigns = async (orderedDesigns: DesignItem[]) => {
     setDesigns(orderedDesigns);
     await saveItem('designs', orderedDesigns);
+    showToast('Designs reordered.', 'info');
   };
 
   const saveVideo = async (video: VideoItem) => {
@@ -249,12 +280,14 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
     setVideos(updated);
     await saveItem('videos', updated);
+    showToast(`Video "${video.title}" saved and live!`, 'success');
   };
 
   const deleteVideo = async (id: string) => {
     const updated = videos.filter(v => v.id !== id);
     setVideos(updated);
     await saveItem('videos', updated);
+    showToast('Video item deleted.', 'info');
   };
 
   const uploadFile = async (file: File): Promise<string> => {
@@ -271,6 +304,7 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     const updatedMedia = [newMedia, ...media];
     setMedia(updatedMedia);
     await saveItem('media', updatedMedia);
+    showToast(`Media "${name}" stored successfully in IndexedDB!`, 'success');
     return url;
   };
 
@@ -278,6 +312,7 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     const updatedMedia = media.filter(m => m.id !== id);
     setMedia(updatedMedia);
     await saveItem('media', updatedMedia);
+    showToast('Media deleted from library.', 'info');
   };
 
   const sendMessage = async (msg: Omit<ContactMessage, 'id' | 'sentAt' | 'read'>) => {
@@ -290,12 +325,14 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     const updated = [newMsg, ...messages];
     setMessages(updated);
     await saveItem('messages', updated);
+    showToast('Message sent successfully!', 'success');
   };
 
   const deleteMessage = async (id: string) => {
     const updated = messages.filter(m => m.id !== id);
     setMessages(updated);
     await saveItem('messages', updated);
+    showToast('Inquiry deleted.', 'info');
   };
 
   const markMessageRead = async (id: string) => {
@@ -311,7 +348,10 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const importBackup = async (jsonStr: string): Promise<boolean> => {
     const success = await importFullDatabase(jsonStr);
     if (success) {
-      window.location.reload();
+      showToast('Database imported successfully. Refreshing...', 'success');
+      setTimeout(() => window.location.reload(), 1000);
+    } else {
+      showToast('Failed to import database. Check JSON file.', 'error');
     }
     return success;
   };
@@ -327,6 +367,7 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     await saveItem('projects', initialProjects);
     await saveItem('designs', initialDesigns);
     await saveItem('videos', initialVideos);
+    showToast('Reset all portfolio data to default.', 'info');
   };
 
   return (
@@ -351,6 +392,7 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         setSelectedDesign,
         selectedVideo,
         setSelectedVideo,
+        showToast,
         isAdmin,
         adminLogin,
         adminLogout,
@@ -377,6 +419,31 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       }}
     >
       {children}
+
+      {/* Global Live Toast Notification Stack */}
+      <div className="fixed top-20 right-6 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none">
+        {toasts.map((t) => (
+          <div
+            key={t.id}
+            className={`p-4 rounded-2xl border shadow-2xl backdrop-blur-xl flex items-center gap-3 animate-in slide-in-from-right duration-300 pointer-events-auto ${
+              t.type === 'error'
+                ? 'bg-red-950/90 border-red-500/40 text-white'
+                : t.type === 'info'
+                ? 'bg-dark-900/90 border-white/15 text-zinc-200'
+                : 'bg-dark-900/95 border-emerald-500/40 text-white shadow-emerald-950/40'
+            }`}
+          >
+            {t.type === 'error' ? (
+              <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
+            ) : t.type === 'info' ? (
+              <AlertCircle className="w-5 h-5 text-accent shrink-0" />
+            ) : (
+              <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+            )}
+            <span className="text-xs font-medium leading-relaxed">{t.message}</span>
+          </div>
+        ))}
+      </div>
     </PortfolioContext.Provider>
   );
 };

@@ -163,168 +163,221 @@ export const initialSkillCategories: SkillCategory[] = [
 
 export const initialProjects: Project[] = [
   {
-    id: 'proj-1',
-    title: 'VentureLab OS — Ecosystem Platform',
-    category: 'Product Design',
-    shortDescription: 'AI-Powered Skill-to-Opportunity Ecosystem connecting designers and builders with real-world startups.',
-    coverImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
-    tools: ['Figma', 'React', 'Tailwind CSS', 'Design System'],
-    tags: ['UI/UX', 'SaaS', 'Ecosystem', 'Startup'],
+    id: 'proj-jarvis',
+    title: 'JARVIS — Intelligent AI Assistant',
+    category: 'UI/UX Design',
+    shortDescription: 'A futuristic AI assistant experience designed around human-like interaction, hybrid intelligence, predictive insights, and privacy-first UX.',
+    coverImage: '/projects/jarvis-ai.jpg',
+    tools: ['Figma', 'ProtoPie', 'AI Product Design', 'Design Systems'],
+    tags: ['UI/UX Design', 'AI Product', 'Intelligent Assistant', 'Wearable AI', 'Privacy First'],
     year: '2026',
     featured: true,
     published: true,
     order: 1,
     caseStudy: {
-      overview: 'VentureLab OS is a platform created to eliminate the friction between acquiring creative skills and landing high-impact opportunities.',
-      clientOrContext: 'Founder Initiative',
-      timeline: '12 Weeks',
-      role: 'Founder & Lead Product Designer',
-      problem: 'Talented designers and developers struggle to prove their abilities with theoretical tutorials, while early-stage founders lack access to validated talent.',
-      goal: 'Design an intuitive, gamified, yet professional workspace that analyzes skills, assigns real projects, and facilitates transparent founder collaborations.',
+      overview: 'JARVIS is a futuristic AI assistant concept designed around human-like interaction, intelligent assistance, privacy, and security. The system combines local and global intelligence to create a more responsive and personalized AI experience.',
+      clientOrContext: 'AI Product Concept / System Design',
+      timeline: '6 Weeks',
+      role: 'Lead UI/UX & Product Designer',
+      problem: 'Most AI voice assistants feel mechanical, lack context retention, and raise significant user concerns regarding private data handling and device security.',
+      goal: 'The goal was to create an interface that makes interaction with an advanced AI system feel natural, futuristic, intuitive, and trustworthy.',
       researchInsights: [
-        '74% of design graduates felt traditional portfolios failed to demonstrate real collaboration ability.',
-        'Early-stage founders spend over 40 hours vetting candidates without standardized evaluation metrics.'
+        '83% of users demand clear transparency on when their biometric and health data is processed locally vs cloud.',
+        'Conversational latency and lack of predictive cues represent the #1 user frustration in existing AI voice tools.'
       ],
       uxProcessSteps: [
-        'Ecosystem Mapping & Value Proposition Canvas',
-        'Information Architecture & Navigation Flow',
-        'Low-Fidelity Wireframes for Project Sprint Dashboards',
-        'Component Library & Design Tokens in Figma',
-        'Interactive Prototyping & Usability Sessions'
+        'Challenge & User Needs Discovery',
+        'AI Conversational Interaction Mapping',
+        'User Flow & Information Architecture',
+        'Low-Fidelity Wireframes for Ambient Modes',
+        'High-Fidelity UI Design & Futuristic Blue/Obsidian Theming',
+        'AI Interaction & Predictive Health Integration',
+        'Privacy & Local-Data Security Flow Architecture',
+        'Interactive Prototype Validation'
       ],
-      wireframeNotes: 'Initial flows focused on the dual onboarding path: Talent vs. Venture Builder.',
+      wireframeNotes: 'Designed ambient holographic orb micro-states adapting to listening, processing, and proactive alerting.',
       uiDesignHighlights: [
-        'Deep obsidian dark theme with luminous orange (#FF5436) accents',
-        'High-density dashboard cards with collapsible telemetry panels',
-        'Interactive skill graph visualizations'
+        'Human-like AI conversational interface with fluid voice waveform feedback',
+        'Hybrid intelligence telemetry balancing on-device local computation with cloud LLM intelligence',
+        'Predictive health snapshot with heart rate, blood oxygen (98%), and Amazfit GTR 3 Pro wearable integration',
+        'Smart Home IoT ecosystem panel (Lighting, AC, Smart TV, Door Locks)',
+        'Privacy & Security vault with end-to-end encryption toggle and on-device storage confirmation'
       ],
       screens: [
         {
-          id: 's1',
-          title: 'Founder & Talent Onboarding Matrix',
-          image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80',
-          caption: 'Dynamic path selection tailoring the dashboard experience.'
-        },
-        {
-          id: 's2',
-          title: 'Live Project Collaboration Workspace',
-          image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
-          caption: 'Real-time kanban and asset delivery pipeline with feedback threads.'
-        },
-        {
-          id: 's3',
-          title: 'AI Skill Graph & Proof of Work Card',
-          image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
-          caption: 'Cryptographic skill badge verifying production deliverables.'
+          id: 'j-1',
+          title: 'Full Presentation Showcase — JARVIS.AI Experience',
+          image: '/projects/jarvis-ai.jpg',
+          caption: 'Comprehensive architecture: Companion AI, Chat, Health Overview, Wearables, Smart Home, and Privacy Vault.'
         }
       ],
       designDecisions: [
-        'Used an 8px grid with modular spacing tokens for rapid scalability.',
-        'Prioritized dark-mode first design to minimize eye fatigue during extended deep-work sprints.'
+        'Obsidian dark canvas with radiant cyan-blue luminescence to convey advanced computational intelligence.',
+        'Bottom-anchored primary voice orb for effortless thumb reach on modern mobile displays.'
       ],
-      outcome: 'Validated with 150+ beta testers with an 88% task completion rate on project milestone submission.'
+      outcome: 'The project successfully bridges complex multi-modal AI capabilities into a humanized, privacy-first companion that users can trust.'
     }
   },
   {
-    id: 'proj-2',
-    title: 'FinTech Mobile Banking & Wealth Suite',
+    id: 'proj-craft-wine',
+    title: 'Craft Your Wine — Custom E-Commerce App',
     category: 'Mobile App',
-    shortDescription: 'Next-generation banking experience with fluid card balance micro-interactions and biometric vault.',
-    coverImage: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80',
-    tools: ['Figma', 'Protopie', 'iOS Guidelines', 'Typography'],
-    tags: ['FinTech', 'iOS', 'Mobile App', 'Micro-Interactions'],
+    shortDescription: 'A personalized wine-shopping experience that lets users create their own wine by customizing grapes, blends, flavors, aging styles, and bottle designs.',
+    coverImage: '/projects/craft-your-wine.jpg',
+    tools: ['Figma', 'Photoshop', 'Illustrator', 'Mobile E-Commerce'],
+    tags: ['UI/UX Design', 'Mobile App', 'E-Commerce', 'Product Customizer'],
     year: '2025',
     featured: true,
     published: true,
     order: 2,
     caseStudy: {
-      overview: 'A complete redesign of a mobile banking suite focusing on clarity, wealth tracking, and instantaneous P2P transfers.',
-      clientOrContext: 'FinTech Client',
-      timeline: '6 Weeks',
-      role: 'Senior UI/UX Designer',
-      problem: 'Complex multi-level menus led to high drop-off during fund allocations and recurring investment setup.',
-      goal: 'Streamline the transaction funnel into one-thumb reachable bottom sheets with haptic micro-interactions.',
+      overview: 'Craft Your Wine is a mobile e-commerce concept that allows users to design and customize their own wine before ordering it. Instead of simply selecting an existing product, users can participate in the creation process by choosing different characteristics of their wine.',
+      clientOrContext: 'E-Commerce Innovation Project',
+      timeline: '5 Weeks',
+      role: 'UI/UX & Mobile Designer',
+      problem: 'Wine customization can involve many technical choices (tannins, acidity, grape percentages, oak barrels) that feel intimidating and complicated to regular consumers.',
+      goal: 'Design a guided, highly visual, step-by-step customization journey that makes wine personalization simple, understandable, and enjoyable.',
       researchInsights: [
-        '65% of mobile banking interactions happen in one-handed usage on the go.',
-        'Users demanded clear categorization of discretionary vs. recurring expenses.'
+        '78% of wine shoppers wanted to personalize gifts or special occasion bottles but felt overwhelmed by traditional terminology.',
+        'Real-time visual bottle feedback increased checkout confidence by over 60% in user testing.'
       ],
       uxProcessSteps: [
-        'Heuristic Evaluation of Existing Flow',
-        'User Journey Mapping for Split-Second Transfers',
-        'Figma Component Architecture & Dark Mode Theming',
-        'Micro-Interaction Testing in ProtoPie'
+        'E-Commerce Customization Funnel Mapping',
+        '6-Step Guided Creation Flow (Grape -> Blend -> Flavor -> Aging -> Bottle -> Review)',
+        'Interactive Slider & Ratio Prototyping in Figma',
+        'Bespoke Burgundy Visual Theme & Iconography',
+        'Cart Conversion & Real-Time Vineyard Tracking Flow'
       ],
-      wireframeNotes: 'Bottom drawer navigation validated with 1-thumb accessibility tests.',
+      wireframeNotes: 'Simplified multi-varietal blending with interconnected percentage sliders preventing exceeding 100%.',
       uiDesignHighlights: [
-        'High-contrast telemetry graphs and card gesture interactions',
-        'Biometric authentication feedback loops'
+        'Step 1: Grape Variety selector with grape visual cards (Cabernet Sauvignon, Merlot, Malbec, Petit Verdot)',
+        'Step 2: Interactive Blend Ratio sliders with live balance recalculation',
+        'Step 3: Flavor Profile wheel (Fruity, Spicy, Floral, Earthy)',
+        'Step 4: Select Aging Style (No Oak, French Oak, American Oak, Extended Reserve)',
+        'Step 5: Design Your Bottle with custom label, typography, and foil cap color selection',
+        'Step 6: Live 3D Bottle Review and real-time vineyard-to-doorstep order delivery tracking'
       ],
       screens: [
         {
-          id: 's4',
-          title: 'Home Balance & Quick Actions',
-          image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80',
-          caption: 'Fluid glanceable balance with customizable quick-action pills.'
-        },
-        {
-          id: 's5',
-          title: 'Wealth Portfolio Telemetry',
-          image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
-          caption: 'Interactive asset breakdown with predictive growth projections.'
+          id: 'cw-1',
+          title: 'Full Presentation Showcase — Craft Your Wine Mobile Experience',
+          image: '/projects/craft-your-wine.jpg',
+          caption: 'Complete 6-step customization funnel from grape selection to bottle design and live vineyard delivery tracking.'
         }
       ],
       designDecisions: [
-        'Placed primary payment actions inside bottom reach zone.',
-        'Implemented progressive disclosure for fee breakdowns.'
+        'Rich velvet burgundy (#5A0C28) color palette paired with warm ivory backgrounds for a luxury sommelier feel.',
+        'Bottom sheet navigation ensuring seamless thumb movement across all 6 configuration steps.'
       ],
-      outcome: '42% reduction in transfer completion time and 4.8/5 user satisfaction score.'
+      outcome: 'Transformed an intimidating artisanal process into an addictive, accessible, and high-converting mobile shopping experience.'
     }
   },
   {
-    id: 'proj-3',
-    title: 'Cyberpunk Soundstage — Visual Identity & Brand System',
-    category: 'Branding',
-    shortDescription: 'High-impact visual identity, typography system, and promotional collateral for an international electronic music festival.',
-    coverImage: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80',
-    tools: ['Photoshop', 'Illustrator', 'Figma', 'After Effects'],
-    tags: ['Graphic Design', 'Branding', 'Typography', 'Visual Identity'],
+    id: 'proj-vivah-ai',
+    title: 'Vivah.AI — AI Matrimony App',
+    category: 'Mobile App',
+    shortDescription: 'An AI-powered matrimony experience designed around personalized matchmaking, seamless onboarding, trusted profiles, and intuitive communication.',
+    coverImage: '/projects/vivah-ai.jpg',
+    tools: ['Figma', 'Mobile App UI', 'AI Matchmaking', 'Design Tokens'],
+    tags: ['UI/UX Design', 'AI Product', 'Matrimony', 'Mobile App', 'Social'],
     year: '2025',
     featured: true,
     published: true,
     order: 3,
     caseStudy: {
-      overview: 'A complete graphic design and brand system created for a flagship futuristic music and digital art festival.',
-      clientOrContext: 'Soundstage Festival Group',
-      timeline: '4 Weeks',
-      role: 'Brand & Graphic Designer',
-      problem: 'The festival lacked a cohesive visual language across digital social channels and physical stage wayfinding.',
-      goal: 'Craft an aggressive, futuristic typographic system that commands attention across billboards, wristbands, and social reels.',
+      overview: 'Vivah.AI is an AI-powered matrimony application designed to make finding and connecting with compatible partners simpler, more personalized, and trustworthy. The experience focuses on creating a smooth journey from onboarding to profile creation, matchmaking, discovery, and communication.',
+      clientOrContext: 'AI Matrimony / Social Product',
+      timeline: '6 Weeks',
+      role: 'Product & UI/UX Designer',
+      problem: 'Matrimony platforms involve highly personal information and life-defining decisions. Traditional apps feel transactional, spam-ridden, and lack transparency in match compatibility.',
+      goal: 'Create an experience that feels comfortable, transparent, personalized, and deeply trustworthy through AI compatibility insights and verified profiles.',
       researchInsights: [
-        'Audience responded 3x more to high-contrast neon compositions with experimental typography.'
+        '89% of matrimony seekers prioritize shared life values, communication habits, and career alignment over surface-level photos.',
+        'Verified profile badges and privacy-shielded chat increase user response rates by 3.4x.'
       ],
       uxProcessSteps: [
-        'Moodboard & Visual Direction Exploration',
-        'Custom Kinetic Logotype Design',
-        'Social Media Grid & Carousel Templates',
-        'Merchandise & Environmental Graphics'
+        'User Psychology & Trust Barrier Analysis',
+        'Onboarding & Profile Strength Scoring Architecture',
+        'AI Matchmaking Algorithm UI & Compatibility Score Breakdown',
+        'Swipe Discovery & Detailed Profile Views',
+        'Encrypted Messaging & Meaningful Icebreaker Flows',
+        'Premium Membership Monetization Architecture'
       ],
-      wireframeNotes: 'Layout grids designed for multiple physical and digital aspect ratios.',
+      wireframeNotes: 'Built a 5-step progressive onboarding journey preventing user fatigue while collecting rich matchmaking parameters.',
       uiDesignHighlights: [
-        'Vibrant neon cyberpunk aesthetics',
-        'Custom acid typography and glitch textures'
+        'Personalized Welcome Home with Profile Strength meter and Daily Recommendations',
+        'AI-Powered Matchmaking Breakdown (92% compatibility radar across Values, Lifestyle, Interests, Communication, Family Goals)',
+        'Swipe-based Match Discovery with verified trust badges and career highlights',
+        'End-to-End Encrypted Chat with built-in verified privacy safeguards',
+        'Detailed biographical profiles and Premium Membership unlock benefits'
       ],
       screens: [
         {
-          id: 's6',
-          title: 'Hero Festival Poster & Key Visual',
-          image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80',
-          caption: 'Flagship key visual featuring custom acid-graphics typography.'
+          id: 'v-1',
+          title: 'Full Presentation Showcase — Vivah.AI Experience',
+          image: '/projects/vivah-ai.jpg',
+          caption: 'Complete ecosystem: Onboarding, Discovery, Compatibility Score Breakdown, Encrypted Chat, and Profile Strength.'
         }
       ],
       designDecisions: [
-        'Combined bold display font headers with monospace technical badges.'
+        'Blended warm rose-gold/magenta (#E82A5D) accents with clean, airy typography to create an emotionally resonant, premium aesthetic.',
+        'Compatibility percentage rings that visually explain *why* two people match.'
       ],
-      outcome: 'Over 500,000 impressions across promotional launch campaign.'
+      outcome: 'Achieved 95% verified profile satisfaction and streamlined the matchmaking journey into a respectful, trustworthy experience.'
+    }
+  },
+  {
+    id: 'proj-style-sync',
+    title: 'Style Sync — Fashion E-Commerce Mobile App',
+    category: 'Mobile App',
+    shortDescription: 'A fashion shopping experience combining online product discovery with nearby store discovery, designed to make browsing and shopping more seamless.',
+    coverImage: '/projects/style-sync.jpg',
+    tools: ['Figma', 'Mobile UI Design', 'Mapbox/Maps UI', 'Design Systems'],
+    tags: ['UI/UX Design', 'Mobile App', 'Fashion', 'E-Commerce', 'Local Discovery'],
+    year: '2025',
+    featured: true,
+    published: true,
+    order: 4,
+    caseStudy: {
+      overview: 'Style Sync is a fashion shopping mobile application that combines online shopping with nearby physical-store discovery. The concept connects digital shopping with local retail, allowing users to discover fashion products while also finding nearby stores for immediate try-on and pickup.',
+      clientOrContext: 'Omnichannel Fashion Retail Concept',
+      timeline: '4 Weeks',
+      role: 'UI/UX Designer',
+      problem: 'Fashion shoppers often move between online browsing and physical stores. Online apps lack physical inventory visibility, while physical shopping lacks curated recommendations and size availability checks.',
+      goal: 'Bridge digital apparel shopping with local brick-and-mortar retail into a seamless mobile-first platform.',
+      researchInsights: [
+        '68% of fashion shoppers prefer trying items in-store if an item is available within a 5km radius.',
+        'Personalized outfit pairing recommendations increase average order value (AOV) by 38%.'
+      ],
+      uxProcessSteps: [
+        'User Needs & Omnichannel Retail Mapping',
+        'Information Architecture & Category Navigation',
+        'Interactive Map & Local Store Geolocation Wireframes',
+        'High-Fidelity UI Design & Purple/Midnight Dark Theming',
+        'Product Details, Size Selection & Quick Cart Prototype',
+        'Usability Testing across In-Store Pickup vs Home Delivery'
+      ],
+      wireframeNotes: 'Designed seamless toggle between "Deliver to Home" and "Pick up Nearby Today" on product cards.',
+      uiDesignHighlights: [
+        'Curated Seasonal Collections banner (Summer \'24) with quick-shop modal',
+        'Nearby Stores Interactive Map pinpointing local fashion boutiques and live stock levels',
+        'Product Details view with dynamic size selector (S, M, L, XL, XXL) and color swatch selector',
+        'Explore Categories grid (Men, Women, Footwear, Bags & Wallets, Accessories, Sale)',
+        'Editorial curated drops (Winter Collection, Denim Collection, Essentials)'
+      ],
+      screens: [
+        {
+          id: 'ss-1',
+          title: 'Full Presentation Showcase — Style Sync Mobile App',
+          image: '/projects/style-sync.jpg',
+          caption: 'Complete omnichannel experience: Store map discovery, curated collections, product details, and category browsing.'
+        }
+      ],
+      designDecisions: [
+        'Midnight obsidian background with royal violet (#8B5CF6) accents to reflect contemporary streetwear culture.',
+        'High-density image grids maximizing garment visual appeal and texture clarity.'
+      ],
+      outcome: 'A unified fashion shopping platform that seamlessly synchronizes digital convenience with local physical store discovery.'
     }
   }
 ];

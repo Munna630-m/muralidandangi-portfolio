@@ -6,6 +6,7 @@ import { DesignManager } from './DesignManager';
 import { VideoManager } from './VideoManager';
 import { MediaLibrary } from './MediaLibrary';
 import { MessagesManager } from './MessagesManager';
+import { MobileSyncModal } from './MobileSyncModal';
 import { 
   Shield, 
   Lock, 
@@ -24,7 +25,8 @@ import {
   RotateCcw,
   Key,
   Check,
-  ExternalLink
+  ExternalLink,
+  Smartphone
 } from 'lucide-react';
 
 export const AdminPortal: React.FC = () => {
@@ -47,6 +49,7 @@ export const AdminPortal: React.FC = () => {
   const [enteredPasscode, setEnteredPasscode] = useState('');
   const [authError, setAuthError] = useState(false);
   const [activeTab, setActiveTab] = useState<'dashboard' | 'profile' | 'projects' | 'designs' | 'videos' | 'media' | 'messages' | 'settings'>('dashboard');
+  const [showMobileSync, setShowMobileSync] = useState(false);
 
   const [newPasscode, setNewPasscode] = useState('');
   const [passcodeChanged, setPasscodeChanged] = useState(false);
@@ -196,7 +199,7 @@ export const AdminPortal: React.FC = () => {
       
       {/* Top Header */}
       <header className="sticky top-0 z-40 bg-dark-950/90 backdrop-blur-xl border-b border-white/10 px-4 sm:px-8 py-4 mb-8">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-4">
           
           <div className="flex items-center gap-3">
             <span className="p-2 rounded-xl bg-accent text-white shadow-md shadow-accent/25">
@@ -213,6 +216,15 @@ export const AdminPortal: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-3">
+            {/* Mobile Sync Trigger */}
+            <button
+              onClick={() => setShowMobileSync(true)}
+              className="px-4 py-2 rounded-xl bg-accent/20 hover:bg-accent text-accent hover:text-white border border-accent/40 text-xs font-semibold font-mono transition-all flex items-center gap-1.5 shadow-sm"
+            >
+              <Smartphone className="w-3.5 h-3.5" />
+              <span>Sync to Mobile</span>
+            </button>
+
             <button
               onClick={() => {
                 setCurrentView('portfolio');
@@ -476,6 +488,9 @@ export const AdminPortal: React.FC = () => {
         )}
 
       </main>
+
+      {/* Mobile Sync Modal */}
+      {showMobileSync && <MobileSyncModal onClose={() => setShowMobileSync(false)} />}
 
     </div>
   );

@@ -25,6 +25,8 @@ import {
 } from '../utils/storage';
 import { CheckCircle2, AlertCircle } from 'lucide-react';
 
+const CURRENT_DATA_VERSION = '2026-08-25-v4';
+
 interface ToastInfo {
   id: string;
   message: string;
@@ -135,20 +137,40 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   // Load persistent data on initial mount
   useEffect(() => {
     async function hydrate() {
-      const storedProfile = await loadItem<Profile>('profile', initialProfile);
-      const storedStartup = await loadItem<VentureLabStartup>('startup', initialStartup);
-      const storedProjects = await loadItem<Project[]>('projects', initialProjects);
-      const storedDesigns = await loadItem<DesignItem[]>('designs', initialDesigns);
-      const storedVideos = await loadItem<VideoItem[]>('videos', initialVideos);
+      // Check stored version - if old version, migrate to newest initialProjects & initialDesigns
+      const storedVersion = await loadItem<string>('portfolio_data_version', '');
+      
+      if (storedVersion !== CURRENT_DATA_VERSION) {
+        // Upgrade cache to newest codebase defaults
+        setProfile(initialProfile);
+        setStartup(initialStartup);
+        setProjects(initialProjects);
+        setDesigns(initialDesigns);
+        setVideos(initialVideos);
+
+        await saveItem('portfolio_data_version', CURRENT_DATA_VERSION);
+        await saveItem('projects', initialProjects);
+        await saveItem('designs', initialDesigns);
+        await saveItem('profile', initialProfile);
+        await saveItem('startup', initialStartup);
+      } else {
+        const storedProfile = await loadItem<Profile>('profile', initialProfile);
+        const storedStartup = await loadItem<VentureLabStartup>('startup', initialStartup);
+        const storedProjects = await loadItem<Project[]>('projects', initialProjects);
+        const storedDesigns = await loadItem<DesignItem[]>('designs', initialDesigns);
+        const storedVideos = await loadItem<VideoItem[]>('videos', initialVideos);
+
+        setProfile(storedProfile);
+        setStartup(storedStartup);
+        setProjects(storedProjects);
+        setDesigns(storedDesigns);
+        setVideos(storedVideos);
+      }
+
       const storedMedia = await loadItem<MediaItem[]>('media', []);
       const storedMessages = await loadItem<ContactMessage[]>('messages', []);
       const storedPasscode = await loadItem<string>('admin_passcode', 'murali2026');
 
-      setProfile(storedProfile);
-      setStartup(storedStartup);
-      setProjects(storedProjects);
-      setDesigns(storedDesigns);
-      setVideos(storedVideos);
       setMedia(storedMedia);
       setMessages(storedMessages);
       setAdminPasscode(storedPasscode);
@@ -362,12 +384,13 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setProjects(initialProjects);
     setDesigns(initialDesigns);
     setVideos(initialVideos);
+    await saveItem('portfolio_data_version', CURRENT_DATA_VERSION);
     await saveItem('profile', initialProfile);
     await saveItem('startup', initialStartup);
     await saveItem('projects', initialProjects);
     await saveItem('designs', initialDesigns);
     await saveItem('videos', initialVideos);
-    showToast('Reset all portfolio data to default.', 'info');
+    showToast('Reset all portfolio data to newest defaults.', 'info');
   };
 
   return (

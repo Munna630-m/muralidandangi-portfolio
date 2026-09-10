@@ -8,7 +8,7 @@ import {
 import { LinkedInIcon, InstagramIcon, BehanceIcon } from '../common/SocialIcons';
 
 export const Footer: React.FC = () => {
-  const { currentView, setCurrentView } = usePortfolio();
+  const { setCurrentView } = usePortfolio();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -133,27 +133,24 @@ export const Footer: React.FC = () => {
 
         </div>
 
-        {/* Bottom Copyright & Admin Trigger */}
+        {/* Bottom Copyright */}
         <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500 font-light">
-          <div>
-            © 2026 Murali Dandangi. All rights reserved.
+          <div className="flex items-center gap-2">
+            <span>© 2026 Murali Dandangi. All rights reserved.</span>
+            <button
+              onClick={() => {
+                setCurrentView('admin');
+                window.location.hash = 'admin';
+              }}
+              className="text-zinc-700 hover:text-zinc-400 transition-colors p-1"
+              title="Portal"
+            >
+              <Shield className="w-3 h-3" />
+            </button>
           </div>
 
           <div className="flex items-center gap-4">
-            <span>Built with React, TypeScript & Tailwind</span>
-            <button
-              onClick={() => {
-                if (currentView === 'admin') {
-                  setCurrentView('portfolio');
-                } else {
-                  setCurrentView('admin');
-                }
-              }}
-              className="inline-flex items-center gap-1.5 text-zinc-500 hover:text-accent font-mono transition-colors"
-            >
-              <Shield className="w-3 h-3" />
-              Admin Access
-            </button>
+            <span>Designed & Built by Murali Dandangi</span>
           </div>
         </div>
 

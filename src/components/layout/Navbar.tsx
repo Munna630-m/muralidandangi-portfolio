@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { usePortfolio } from '../../context/PortfolioContext';
-import { Menu, X, ArrowUpRight, Shield, Sparkles } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Sparkles } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const { currentView, setCurrentView, activeNavSection, setActiveNavSection } = usePortfolio();
@@ -114,27 +114,6 @@ export const Navbar: React.FC = () => {
 
         {/* Right Action & CTAs */}
         <div className="hidden md:flex items-center gap-3">
-          {/* Admin Switcher */}
-          <button
-            onClick={() => {
-              if (currentView === 'admin') {
-                setCurrentView('portfolio');
-                window.location.hash = '';
-              } else {
-                setCurrentView('admin');
-                window.location.hash = 'admin';
-              }
-            }}
-            title={currentView === 'admin' ? 'View Public Site' : 'Admin CMS Portal'}
-            className={`p-2.5 rounded-full border transition-all duration-200 ${
-              currentView === 'admin'
-                ? 'bg-accent text-white border-accent shadow-lg shadow-accent/30'
-                : 'bg-dark-800/80 text-zinc-400 border-white/10 hover:text-white hover:border-accent/40'
-            }`}
-          >
-            <Shield className="w-4 h-4" />
-          </button>
-
           {/* Primary CTA */}
           <a
             href="#contact"
@@ -151,20 +130,6 @@ export const Navbar: React.FC = () => {
 
         {/* Mobile Menu Toggle */}
         <div className="flex md:hidden items-center gap-2">
-          <button
-            onClick={() => {
-              if (currentView === 'admin') {
-                setCurrentView('portfolio');
-              } else {
-                setCurrentView('admin');
-              }
-            }}
-            className="p-2 rounded-lg bg-dark-800 text-zinc-300 border border-white/10"
-            title="Admin"
-          >
-            <Shield className="w-4 h-4" />
-          </button>
-          
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 rounded-lg bg-dark-800 text-zinc-300 border border-white/10 hover:text-white"

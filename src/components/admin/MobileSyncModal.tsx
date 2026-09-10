@@ -167,7 +167,7 @@ export const MobileSyncModal: React.FC<{ onClose: () => void }> = ({ onClose }) 
         {syncStep === 'import' && (
           <div className="space-y-4">
             <p className="text-xs text-zinc-300 font-light leading-relaxed">
-              Open your portfolio on your mobile phone, go to <code>#admin</code> (passcode: <code>murali2026</code>), click <strong>Sync to Mobile</strong>, and paste your sync code here:
+              Open your portfolio on your other device, go to <code>/admin</code>, log in with your private security password, click <strong>Sync to Mobile</strong>, and paste your sync code here:
             </p>
 
             <textarea

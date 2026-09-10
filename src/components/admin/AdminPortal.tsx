@@ -9,7 +9,6 @@ import { MessagesManager } from './MessagesManager';
 import { MobileSyncModal } from './MobileSyncModal';
 import { 
   Shield, 
-  Lock, 
   Unlock, 
   ArrowLeft, 
   LayoutDashboard, 
@@ -22,11 +21,13 @@ import {
   Settings, 
   Download, 
   Upload, 
-  RotateCcw,
-  Key,
-  Check,
-  ExternalLink,
-  Smartphone
+  RotateCcw, 
+  Key, 
+  Check, 
+  ExternalLink, 
+  Smartphone,
+  Eye,
+  EyeOff
 } from 'lucide-react';
 
 export const AdminPortal: React.FC = () => {
@@ -34,7 +35,7 @@ export const AdminPortal: React.FC = () => {
     isAdmin, 
     adminLogin, 
     adminLogout, 
-    updateAdminPasscode,
+    updateAdminPasscode, 
     setCurrentView,
     projects,
     designs,
@@ -47,12 +48,15 @@ export const AdminPortal: React.FC = () => {
   } = usePortfolio();
 
   const [enteredPasscode, setEnteredPasscode] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [authError, setAuthError] = useState(false);
   const [activeTab, setActiveTab] = useState<'dashboard' | 'profile' | 'projects' | 'designs' | 'videos' | 'media' | 'messages' | 'settings'>('dashboard');
   const [showMobileSync, setShowMobileSync] = useState(false);
 
   const [newPasscode, setNewPasscode] = useState('');
+  const [confirmPasscode, setConfirmPasscode] = useState('');
   const [passcodeChanged, setPasscodeChanged] = useState(false);
+  const [passcodeError, setPasscodeError] = useState('');
   const [importStatus, setImportStatus] = useState<string | null>(null);
 
   const handleLogin = (e: React.FormEvent) => {
@@ -95,10 +99,24 @@ export const AdminPortal: React.FC = () => {
 
   const handleChangePasscode = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newPasscode.trim()) return;
+    setPasscodeError('');
+    if (!newPasscode.trim()) {
+      setPasscodeError('Please enter a new password.');
+      return;
+    }
+    if (newPasscode.trim().length < 6) {
+      setPasscodeError('Password must be at least 6 characters.');
+      return;
+    }
+    if (newPasscode !== confirmPasscode) {
+      setPasscodeError('Passwords do not match.');
+      return;
+    }
+
     await updateAdminPasscode(newPasscode.trim());
     setPasscodeChanged(true);
     setNewPasscode('');
+    setConfirmPasscode('');
     setTimeout(() => setPasscodeChanged(false), 3000);
   };
 
@@ -117,41 +135,43 @@ export const AdminPortal: React.FC = () => {
               <Shield className="w-8 h-8" />
             </div>
             <h2 className="text-2xl font-display font-bold text-white tracking-tight">
-              Admin & CMS Authentication
+              Owner Access Only
             </h2>
             <p className="text-xs text-zinc-400 font-light">
-              Enter your admin security passcode to manage portfolio content.
+              Restricted portal for Murali Dandangi. Enter your private security password.
             </p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-1.5">
               <label className="text-xs uppercase tracking-wider font-semibold text-zinc-300">
-                Security Passcode
+                Security Password
               </label>
               <div className="relative">
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   required
                   autoFocus
-                  placeholder="Enter passcode..."
+                  placeholder="Enter your private password..."
                   value={enteredPasscode}
                   onChange={(e) => {
                     setEnteredPasscode(e.target.value);
                     setAuthError(false);
                   }}
-                  className="w-full px-4 py-3 rounded-xl bg-dark-950 border border-white/10 text-white text-sm focus:border-accent outline-none"
+                  className="w-full pl-4 pr-12 py-3 rounded-xl bg-dark-950 border border-white/10 text-white text-sm focus:border-accent outline-none"
                 />
-                <Lock className="w-4 h-4 text-zinc-500 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 p-1"
+                  title={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
               {authError && (
-                <p className="text-xs text-red-400 font-medium">Incorrect passcode. Try again.</p>
+                <p className="text-xs text-red-400 font-medium">Access denied. Incorrect security password.</p>
               )}
-            </div>
-
-            <div className="p-3 rounded-xl bg-dark-950/80 border border-white/5 text-[11px] text-zinc-400 space-y-1">
-              <div className="font-semibold text-zinc-300">Default Access Code:</div>
-              <code className="text-accent font-mono">murali2026</code>
             </div>
 
             <button
@@ -159,7 +179,7 @@ export const AdminPortal: React.FC = () => {
               className="w-full py-3.5 rounded-xl bg-accent hover:bg-accent-hover text-white text-xs uppercase tracking-widest font-bold transition-all shadow-lg shadow-accent/25 flex items-center justify-center gap-2"
             >
               <Unlock className="w-4 h-4" />
-              <span>Unlock Admin Dashboard</span>
+              <span>Unlock Management Portal</span>
             </button>
           </form>
 
@@ -172,7 +192,7 @@ export const AdminPortal: React.FC = () => {
               className="text-xs text-zinc-400 hover:text-white font-mono flex items-center justify-center gap-1.5 mx-auto transition-colors"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
-              Back to Public Portfolio
+              Return to Public Portfolio
             </button>
           </div>
 
@@ -191,7 +211,7 @@ export const AdminPortal: React.FC = () => {
     { id: 'videos', label: 'Videos', icon: <Film className="w-4 h-4" />, count: videos.length },
     { id: 'media', label: 'Media Library', icon: <HardDrive className="w-4 h-4" />, count: media.length },
     { id: 'messages', label: 'Inquiries', icon: <MessageSquare className="w-4 h-4" />, count: messages.filter(m => !m.read).length },
-    { id: 'settings', label: 'System & Backup', icon: <Settings className="w-4 h-4" /> },
+    { id: 'settings', label: 'System & Security', icon: <Settings className="w-4 h-4" /> },
   ];
 
   return (
@@ -210,7 +230,7 @@ export const AdminPortal: React.FC = () => {
                 MURALI DANDANGI <span className="text-accent font-mono text-xs">CMS</span>
               </h1>
               <div className="text-[10px] text-zinc-400 font-mono">
-                Persistent Storage Active • IndexedDB Sync
+                Authenticated Session Active
               </div>
             </div>
           </div>
@@ -388,21 +408,40 @@ export const AdminPortal: React.FC = () => {
             <div className="p-8 rounded-3xl bg-dark-900 border border-white/10 space-y-5">
               <h4 className="text-base font-bold text-white flex items-center gap-2">
                 <Key className="w-5 h-5 text-accent" />
-                Change Admin Security Passcode
+                Update Owner Security Password
               </h4>
+              <p className="text-xs text-zinc-400">
+                Change your secret password. Keep it private so only you have access to modify your portfolio.
+              </p>
 
               <form onSubmit={handleChangePasscode} className="space-y-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs uppercase font-semibold text-zinc-400">New Passcode</label>
+                  <label className="text-xs uppercase font-semibold text-zinc-400">New Password</label>
                   <input
                     type="password"
                     required
-                    placeholder="Enter new security passcode..."
+                    placeholder="Enter new private password (min 6 characters)..."
                     value={newPasscode}
                     onChange={(e) => setNewPasscode(e.target.value)}
                     className="w-full px-4 py-3 rounded-xl bg-dark-950 border border-white/10 text-white text-sm focus:border-accent outline-none"
                   />
                 </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs uppercase font-semibold text-zinc-400">Confirm New Password</label>
+                  <input
+                    type="password"
+                    required
+                    placeholder="Confirm new password..."
+                    value={confirmPasscode}
+                    onChange={(e) => setConfirmPasscode(e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl bg-dark-950 border border-white/10 text-white text-sm focus:border-accent outline-none"
+                  />
+                </div>
+
+                {passcodeError && (
+                  <p className="text-xs text-red-400 font-medium">{passcodeError}</p>
+                )}
 
                 <button
                   type="submit"
@@ -411,10 +450,10 @@ export const AdminPortal: React.FC = () => {
                   {passcodeChanged ? (
                     <>
                       <Check className="w-4 h-4 text-white" />
-                      <span>Passcode Updated!</span>
+                      <span>Password Updated & Protected!</span>
                     </>
                   ) : (
-                    <span>Update Passcode</span>
+                    <span>Save New Password</span>
                   )}
                 </button>
               </form>
@@ -468,7 +507,7 @@ export const AdminPortal: React.FC = () => {
                 Reset To Default Portfolio Data
               </h4>
               <p className="text-xs text-zinc-400">
-                Resets all projects, designs, and profile content to Murali Dandangi defaults.
+                Resets all projects, designs, and profile content to newest defaults.
               </p>
 
               <button

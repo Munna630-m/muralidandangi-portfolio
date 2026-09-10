@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PortfolioProvider, usePortfolio } from './context/PortfolioContext';
 import { Navbar } from './components/layout/Navbar';
 import { Hero } from './components/hero/Hero';
@@ -10,10 +10,22 @@ import { DesignsGallery } from './components/designs/DesignsGallery';
 import { ContactSection } from './components/contact/ContactSection';
 import { Footer } from './components/layout/Footer';
 import { AdminPortal } from './components/admin/AdminPortal';
-import { Shield } from 'lucide-react';
 
 const PortfolioApp: React.FC = () => {
   const { currentView, setCurrentView } = usePortfolio();
+
+  // Owner shortcut: Press Ctrl + Shift + A (or Cmd + Shift + A) to open CMS Portal directly
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        setCurrentView('admin');
+        window.location.hash = 'admin';
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [setCurrentView]);
 
   if (currentView === 'admin') {
     return <AdminPortal />;
@@ -37,21 +49,6 @@ const PortfolioApp: React.FC = () => {
 
       {/* Footer */}
       <Footer />
-
-      {/* Floating Admin & Quick CMS Badge */}
-      <button
-        onClick={() => {
-          setCurrentView('admin');
-          window.location.hash = 'admin';
-        }}
-        className="fixed bottom-6 right-6 z-40 p-3 rounded-full bg-dark-900/90 hover:bg-accent text-zinc-300 hover:text-white border border-white/10 hover:border-accent shadow-2xl backdrop-blur-xl transition-all duration-300 group flex items-center gap-2"
-        title="Admin Content Management Portal"
-      >
-        <Shield className="w-5 h-5 text-accent group-hover:text-white" />
-        <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 text-xs font-mono font-bold uppercase tracking-wider whitespace-nowrap pr-1">
-          CMS Admin
-        </span>
-      </button>
     </div>
   );
 };

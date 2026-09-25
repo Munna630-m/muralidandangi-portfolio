@@ -1,0 +1,14 @@
+# robots.txt for https://muralidandangi-portfolio.netlify.app
+User-agent: *
+Allow: /
+Allow: /assets/
+Allow: /projects/
+Allow: /uploads/
+Disallow: /admin
+Disallow: /#admin
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Sitemap URL for Google and Search Engines
+Sitemap: https://muralidandangi-portfolio.netlify.app/sitemap.xml
